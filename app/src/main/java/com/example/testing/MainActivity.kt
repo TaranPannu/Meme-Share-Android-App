@@ -28,7 +28,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadMeme()
+        val intent=Intent(this,MainActivity2::class.java)
+        startActivity(intent)
+     //   loadMeme()
     }
 
 fun loadMeme(){
@@ -42,7 +44,7 @@ pr_bar.visibility=View.VISIBLE
 // Request a string response from the provided URL.
     val JsonObjectRequest = JsonObjectRequest(
         Request.Method.GET, url,null,
-        { response ->
+        Response.Listener  { response ->
              url1=response.getString("url")
             val img=findViewById(R.id.img) as ImageView
             Glide.with(this).load(url1).listener(object: RequestListener<Drawable>{
@@ -68,13 +70,13 @@ pr_bar.visibility=View.VISIBLE
                 }
             }).into(img)//to handle progress bar we will add listener in Glide
         },
-  {
+        Response.ErrorListener {
             Toast.makeText(this,"error", Toast.LENGTH_LONG).show()
 
         })
 
 // Add the request to the RequestQueue.
-    queue.add(JsonObjectRequest)
+ //   queue.add(JsonObjectRequest)
 
 }
     fun shareMeme(view: View) {
@@ -85,6 +87,8 @@ val intent =Intent(Intent.ACTION_SEND)
         startActivity(chooser)
     }
     fun nextMeme(view: View) {
+        val intent=Intent(this,MainActivity2::class.java)
+        startActivity(intent)
         loadMeme()
     }
 
